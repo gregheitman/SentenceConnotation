@@ -55,33 +55,40 @@ public class XMLParser {
 
 
 
-    public char[] readFile(File file) throws IOException {
+    public String readFile(File file){
 
 
-        RandomAccessFile aFile = new RandomAccessFile
-                (file, "r");
-        FileChannel inChannel = aFile.getChannel();
-        MappedByteBuffer buffer = aFile.getChannel().map(FileChannel.MapMode.READ_ONLY, 0, aFile.length());
+        try {
+            RandomAccessFile aFile = new RandomAccessFile
+                    (file, "r");
+            FileChannel inChannel = aFile.getChannel();
+            MappedByteBuffer buffer = aFile.getChannel().map(FileChannel.MapMode.READ_ONLY, 0, aFile.length());
 
-        char[] charArray = new char[buffer.limit()];
-
-
-        for(int i = 0; i < buffer.limit(); i++){
-
-            charArray[i] = (char) buffer.get();
+            char[] charArray = new char[buffer.limit()];
 
 
+            for (int i = 0; i < buffer.limit(); i++) {
+
+                charArray[i] = (char) buffer.get();
+
+
+            }
+
+            System.out.println("Size of char Array : " + charArray.length);
+
+
+            inChannel.close();
+            aFile.close();
+
+            return new String(charArray);
+
+        }catch(Exception e){
+
+            e.printStackTrace();
         }
 
-        System.out.println("Size of char Array : " + charArray.length);
 
-
-
-        inChannel.close();
-        aFile.close();
-
-
-        return charArray;
+        return "";
 
     }
 
@@ -107,7 +114,7 @@ public class XMLParser {
             try {
 
 
-                String xmlContent = String.valueOf(readFile(xmlDoc));
+                String xmlContent = readFile(xmlDoc);
 
                 System.out.println( "LENGTH OF STRING : " + xmlContent.length());
 
