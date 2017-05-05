@@ -44,7 +44,6 @@ public class XMLParser {
         for(Element e : Jsoup.parse(xml, "",  Parser.xmlParser()).select("body")){
 
           content.add(e.text());
-
         }
 
 
@@ -72,6 +71,7 @@ public class XMLParser {
                 charArray[i] = (char) buffer.get();
 
 
+
             }
 
             System.out.println("Size of char Array : " + charArray.length);
@@ -80,7 +80,7 @@ public class XMLParser {
             inChannel.close();
             aFile.close();
 
-            return new String(charArray);
+            return String.valueOf(charArray);
 
         }catch(Exception e){
 
