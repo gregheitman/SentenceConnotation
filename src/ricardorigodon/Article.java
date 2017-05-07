@@ -10,7 +10,7 @@ public class Article {
 
     String title = "";
     ArrayList<String> text = new ArrayList<String>();
-    int posScore = 0;
+    double posScore = 0;
 
 
     /**
@@ -19,7 +19,7 @@ public class Article {
      * @param text Text of the article
      * @param posScore positivity score of the article
      */
-    public Article(String title, ArrayList<String> text, int posScore){
+    public Article(String title, ArrayList<String> text, double posScore){
 
         this.title = title;
         this.text = text;
@@ -44,11 +44,11 @@ public class Article {
         this.text = text;
     }
 
-    public int getPosScore() {
+    public double getPosScore() {
         return posScore;
     }
 
-    public void setPosScore(int posScore) {
+    public void setPosScore(double posScore) {
         this.posScore = posScore;
     }
 }
