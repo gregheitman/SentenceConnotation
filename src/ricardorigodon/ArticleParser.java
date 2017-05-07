@@ -72,10 +72,14 @@ public class ArticleParser {
 
            if(!value) {
 
+              s = s.trim();
+
                int byIndex = s.indexOf("By");
+
+               //for some reason the leadIndex does not work
                int leadIndex = s.indexOf("LEAD:");
 
-               int masterIndex = 0;
+               int masterIndex;
 
                if (byIndex > leadIndex) {
 
@@ -118,17 +122,6 @@ public class ArticleParser {
            }
 
        }
-
-
-
-
-
-
-
-
-
-
-
 
 
         return articles;
