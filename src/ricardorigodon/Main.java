@@ -35,7 +35,6 @@ public class Main {
 
         int year = Integer.parseInt(args[0]);
 
-        Map<Integer, ArrayList<Article>> yearMap = new TreeMap<Integer, ArrayList<Article>>();
 
 
 
@@ -47,10 +46,18 @@ public class Main {
 
             ArrayList<Article> articles = articleParser.txtToArticles(articleParser.readFile(file));
 
+            System.out.println("Creating articles out of the .txt file");
+
+            System.out.println("We have : " + articles.size() + " ARTICLES!");
+
+
+
 
 
             for(Article a : articles){
 
+                ArrayList<String> p = a.getText();
+                
 
                a.setPosScore(articleProcessor.calcPosScore(a.getText()));
 
@@ -66,6 +73,8 @@ public class Main {
             double SD = calculateSD(mean, articles);
 
 
+            System.out.println("Normalizing scores.");
+
             for(Article a : articles) {
 
 
@@ -74,7 +83,11 @@ public class Main {
 
             }
 
+            System.out.println("Scores are normalized.");
+
             clearFile(DATA_FOLDER + year + ".txt");
+
+            System.out.println("Clearing : " +year + ".txt");
 
 
 
@@ -83,15 +96,16 @@ public class Main {
                 PrintWriter out = new PrintWriter(new FileWriter(DATA_FOLDER + year + ".txt", true));
 
 
-                String formatStr =  "%-20s %15s%n";
+              //  String formatStr =  "%-20s %15s%n";
 
-                out.write(String.format(formatStr, "TITLE", "SCORE"));
+                out.write( "TITLE" + "\t" + "SCORE");
 
                 out.write("\n");
 
                 for(Article a : articles) {
 
-                    out.write(String.format(formatStr, a.getTitle(), a.getPosScore()));
+                    out.write(a.getTitle() + "\t" + a.getPosScore());
+                    out.write("\n");
 
                 }
 
@@ -99,7 +113,6 @@ public class Main {
 
                 e.printStackTrace();
             }
-
 
 
 
