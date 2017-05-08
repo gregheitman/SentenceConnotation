@@ -1,3 +1,7 @@
+/*  Greg Heitman, Ricardo Rigodon, Brooks Wegmann
+ *  CSC320 
+ *  Final Project
+ */
 package ricardorigodon;
 
 import java.util.ArrayList;
