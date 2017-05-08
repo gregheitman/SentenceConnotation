@@ -1,3 +1,7 @@
+/*  Greg Heitman, Ricardo Rigodon, Brooks Wegmann
+ *  CSC320 
+ *  Final Project
+ */
 package ricardorigodon;
 
 import java.io.File;
@@ -27,7 +31,7 @@ public class ArticleParser {
    //max length of titles
    final static int MAX_LENGTH = 300;
 
-
+   // Stop list to ignore articles that only consist of stock/financial information
    ArrayList<String> ignoreTexts = new ArrayList(
         Arrays.asList("reports earnings for qtr", "reports earnings for year", "company reports"));
 
@@ -46,6 +50,9 @@ public class ArticleParser {
     }
 
 
+    /* Takes in all of the text of a given year and parses out each article along with titles and sentences
+     * yearText should consist of all articles delimited by \n
+     */
     public ArrayList<Article> txtToArticles(String yearText){
 
 
@@ -62,11 +69,12 @@ public class ArticleParser {
 
        int count = 0;
 
+       /* For each article, get its title and body content */
        for(String s : content){
 
           boolean value = false;
 
-
+          /* Ignores articles that are not relevant */
           for(String str : ignoreTexts){
 
 
@@ -79,18 +87,19 @@ public class ArticleParser {
 
 
           }
-
+           /* Parse out Title and Body content from relevant articles */
            if(!value) {
 
-
+               /* Checks positions of keywords known to terminate titles */
                int byIndex = s.indexOf("By");
 
                //for some reason the leadIndex does not work
                int leadIndex = s.indexOf("LEAD:");
 
-
+               
                int masterIndex = NO_FOUND_SUB;
 
+               /* Use the earliest occurence of a keyword to get length of the title */
                if (byIndex > 0 && leadIndex > 0) {
 
                    if (byIndex < leadIndex) {
@@ -118,12 +127,13 @@ public class ArticleParser {
                String title;
                String restOfText;
 
-
+               
                if (masterIndex > 0) {
 
 
                    title = s.substring(0, masterIndex);
-
+                   // Checks if first occurrence of keyword is outside of the actual title
+                   // Eliminates very lengthy titles for articles
                    if(title.length() > MAX_LENGTH){
 
                        title = s.substring(0, Math.min(title.length(), MAX_LENGTH));
@@ -170,7 +180,7 @@ public class ArticleParser {
 
     }
 
-
+    
     public String readFile(File file){
 
 
