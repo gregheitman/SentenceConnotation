@@ -66,7 +66,7 @@ We wanted to have it run for a select number of years or for all the years at on
 
 A list of years that are supported:
 
-Out of the years 1987-2007 only the years 2001-2004 are not supported. We could not get the txt from our parser for these years.
+Out of the years 1987-2007 only the years 2001-2004 are not supported. We could not get the text from our parser for these years.
 
 
 
