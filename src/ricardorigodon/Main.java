@@ -56,7 +56,6 @@ public class Main {
 
             for(Article a : articles){
 
-                ArrayList<String> p = a.getText();
 
 
                a.setPosScore(articleProcessor.calcPosScore(a.getText()));
