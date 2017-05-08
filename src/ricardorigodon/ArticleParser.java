@@ -4,6 +4,7 @@ import java.io.File;
 import java.text.BreakIterator;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Locale;
 import java.util.regex.Pattern;
 
@@ -22,6 +23,9 @@ public class ArticleParser {
 
    final static int ZERO_VALUE = 0;
    final static int NO_FOUND_SUB = -999;
+
+   //max length of titles
+   final static int MAX_LENGTH = 300;
 
 
    ArrayList<String> ignoreTexts = new ArrayList(
@@ -49,6 +53,7 @@ public class ArticleParser {
 
 
        String content[] = yearText.split("[\r\n]+");
+
 
        System.out.println("# of different articles : " + content.length);
 
@@ -86,7 +91,7 @@ public class ArticleParser {
 
                int masterIndex = NO_FOUND_SUB;
 
-               if(byIndex > 0 && leadIndex > 0) {
+               if (byIndex > 0 && leadIndex > 0) {
 
                    if (byIndex < leadIndex) {
 
@@ -95,33 +100,37 @@ public class ArticleParser {
 
                        masterIndex = leadIndex;
                    }
-               }
+               } else {
 
-               else{
-
-                   if(leadIndex > 0 || byIndex > 0)
-                   if (byIndex > leadIndex) {
+                   if (byIndex > 0) {
 
                        masterIndex = byIndex;
-                   } else{
+                   } else if (leadIndex > 0) {
 
-                       if(leadIndex > 0) {
-                           masterIndex = leadIndex;
-                       }
+
+                       masterIndex = leadIndex;
                    }
 
 
                }
 
 
+               String title;
+               String restOfText;
+
 
                if (masterIndex > 0) {
 
-                   count++;
 
-                   String title = s.substring(0, masterIndex);
+                   title = s.substring(0, masterIndex);
 
-                   String restOfText = s.substring(masterIndex);
+                   if(title.length() > MAX_LENGTH){
+
+                       title = s.substring(0, Math.min(title.length(), MAX_LENGTH));
+                   }
+
+
+                   restOfText = s.substring(masterIndex);
 
 
                    //breaks up string into individual sentences
@@ -141,6 +150,8 @@ public class ArticleParser {
                    }
 
                    //create new article.
+
+
                    Article article = new Article(title, sentences, ZERO_VALUE);
 
 
@@ -150,7 +161,8 @@ public class ArticleParser {
 
            }
 
-       }
+           }
+
 
 
         return articles;
