@@ -21,6 +21,7 @@ public class ArticleParser {
 
 
    final static int ZERO_VALUE = 0;
+   final static int NO_FOUND_SUB = -999;
 
 
    ArrayList<String> ignoreTexts = new ArrayList(
@@ -49,15 +50,17 @@ public class ArticleParser {
 
        String content[] = yearText.split("[\r\n]+");
 
-
-       int count = 1;
-
+       System.out.println("# of different articles : " + content.length);
 
 
+
+
+       int count = 0;
 
        for(String s : content){
 
           boolean value = false;
+
 
           for(String str : ignoreTexts){
 
@@ -65,6 +68,8 @@ public class ArticleParser {
               if(s.toLowerCase().contains(str.toLowerCase())){
 
                   value = true;
+
+
               }
 
 
@@ -72,24 +77,47 @@ public class ArticleParser {
 
            if(!value) {
 
-              s = s.trim();
 
                int byIndex = s.indexOf("By");
 
                //for some reason the leadIndex does not work
                int leadIndex = s.indexOf("LEAD:");
 
-               int masterIndex;
 
-               if (byIndex > leadIndex) {
+               int masterIndex = NO_FOUND_SUB;
 
-                   masterIndex = byIndex;
-               } else {
-                   masterIndex = leadIndex;
+               if(byIndex > 0 && leadIndex > 0) {
+
+                   if (byIndex < leadIndex) {
+
+                       masterIndex = byIndex;
+                   } else {
+
+                       masterIndex = leadIndex;
+                   }
+               }
+
+               else{
+
+                   if(leadIndex > 0 || byIndex > 0)
+                   if (byIndex > leadIndex) {
+
+                       masterIndex = byIndex;
+                   } else{
+
+                       if(leadIndex > 0) {
+                           masterIndex = leadIndex;
+                       }
+                   }
+
+
                }
 
 
+
                if (masterIndex > 0) {
+
+                   count++;
 
                    String title = s.substring(0, masterIndex);
 
@@ -114,6 +142,7 @@ public class ArticleParser {
 
                    //create new article.
                    Article article = new Article(title, sentences, ZERO_VALUE);
+
 
                    articles.add(article);
 
