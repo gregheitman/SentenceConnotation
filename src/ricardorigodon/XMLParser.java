@@ -1,3 +1,7 @@
+/*  Greg Heitman, Ricardo Rigodon, Brooks Wegmann
+ *  CSC320 
+ *  Final Project
+ */
 package ricardorigodon;
 
 import com.google.common.base.Joiner;
@@ -36,11 +40,13 @@ public class XMLParser {
         return parser;
     }
 
+    // Parses xml text and returns an ArrayList of Strings.
+    // Each position corresponds to an article
     public List<String> XMLtoText(String xml){
 
 
         List<String> content = new ArrayList<String>();
-
+        // Grabs body content from xml files, no other information needed
         for(Element e : Jsoup.parse(xml, "",  Parser.xmlParser()).select("body")){
 
           content.add(e.text());
@@ -53,7 +59,7 @@ public class XMLParser {
     }
 
 
-
+    // Reads in a given file and returns result as a single string
     public String readFile(File file){
 
 
@@ -92,6 +98,7 @@ public class XMLParser {
 
     }
 
+    // Reads in .xml file and writes article data to .txt file
     public void XMLtoText(char[] charArray){
 
 
@@ -119,14 +126,14 @@ public class XMLParser {
                 System.out.println( "LENGTH OF STRING : " + xmlContent.length());
 
 
-
+                //Splits xml file into different articles
                 String[] content = xmlContent.split("</nitf>");
 
                 System.out.println("Size of XML content array : " + content.length);
 
-
+                //Writes data to .txt file
                 for (String s : content) {
-
+                    //gets body context
                     Joiner.on("\t").join(XMLtoText(s));
 
                     try(FileWriter fw = new FileWriter(XML_Text + year + ".txt", true);
