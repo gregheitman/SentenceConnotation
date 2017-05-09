@@ -60,7 +60,8 @@ We tried everything to try and get the text from these years maybe in the future
 Running the Program
 --------------------
 
-The program should be run from an IDE with an added dependancy linking to JSOUP. Along with dependencies to Guava,Apache Commons 2.5, Log4j, Apache Commons-lang. The program takes 1 argument as input which is the year you are looking for. This argument will be the year whose score will be caluclated. All output will be written to that years text file in the /data/ subdirectory. You will need the txt files for each year in a directory txts- not in github by request- along with the words directory included here.
+The program should be run from an IDE with an added dependancy linking to JSOUP. Along with dependencies to Guava,Apache Commons 2.5, Log4j, Apache Commons-lang. The program takes 1 argument as input which is the year you are looking for. This argument will be the year whose score will be caluclated. All output will be written to that years text file in the /data/ subdirectory. You will need the txt files for each year in a directory txts- not in github by request- along with the words directory included here. The text files for each year should be placed in the /txts/ directory. If these files are not placed in the /txts/ directory the program will not run. 
+The JVM will need an additional argument to expand heap space when running the program due to the size of the data being processed. This can be set in Eclipse under Run Configurations or in the command line using -Xmx<size>m argument. A size over 4000 should suffice.
 
 We wanted to have it run for a select number of years or for all the years at once, but we were limited by exceeding our heap memory size after processing 1 year. Each year contains thousands of articles so the memory usage grows pretty fast. The total NYT Corpus size is 1.8 million articles large.
 
@@ -68,5 +69,15 @@ A list of years that are supported:
 
 Out of the years 1987-2007 only the years 2001-2004 are not supported. We could not get the text from our parser for these years.
 
+-------------
+Contributions
+-------------
+
+Project Proposal - Ricardo
+Overall Project Design - Ricardo
+Project Implementation - Everyone (mainly used paired programming)
+Debugging - Everyone
+Documentation - Brooks
+Data Analysis & Representation - Greg
 
 
