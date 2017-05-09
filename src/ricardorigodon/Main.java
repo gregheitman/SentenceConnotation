@@ -1,3 +1,12 @@
+/*  Greg Heitman, Ricardo Rigodon, Brooks Wegmann
+ *  CSC320 
+ *  Final Project
+ */
+
+/* The purpose of this program is to determine the positivity of articles in the NYT Corpus from 1987-2007. 
+ * The program takes in one argument (a year) and determines the positivity score for each article in that year.
+ * Positivity scores are normalized using z-score.
+ */
 package ricardorigodon;
 
 
@@ -9,6 +18,7 @@ import java.util.ArrayList;
 import java.util.Map;
 import java.util.TreeMap;
 
+/* Driver Class for Final Project */
 public class Main {
 
 
@@ -21,7 +31,7 @@ public class Main {
 
 
 
-
+        // Checks for valid input
         if(args.length < 1 || args.length > 1){
 
             System.out.println("Enter in the year you want to process as an argument. Example : java IRFinalProject 1987");
@@ -37,7 +47,8 @@ public class Main {
 
 
 
-
+            // Reads in data for given year and parses out articles
+        
             ArticleParser articleParser = ArticleParser.getArticleParser();
 
             ArticleProcessor articleProcessor = ArticleProcessor.getArticleProcessor();
@@ -53,16 +64,13 @@ public class Main {
 
 
 
-
+            // Set initial positivity scores, values range between 0 and 1
             for(Article a : articles){
-
-
 
                a.setPosScore(articleProcessor.calcPosScore(a.getText()));
 
 
             }
-
 
 
 
@@ -74,10 +82,9 @@ public class Main {
 
             System.out.println("Normalizing scores.");
 
+            // Normalize positivity score for each article
             for(Article a : articles) {
 
-
-                //normalize scores
                 normalizeScore(a, mean, SD);
 
             }
@@ -89,7 +96,7 @@ public class Main {
             System.out.println("Clearing : " +year + ".txt");
 
 
-
+            // Output each the title of each article and its positivity score to corresponding .txt file for that year
             try {
 
                 PrintWriter out = new PrintWriter(new FileWriter(DATA_FOLDER + year + ".txt", true));
@@ -114,13 +121,9 @@ public class Main {
             }
 
 
-
-
-
-
     }
 
-
+    // Calculates the mean positivity score given a list of articles
     public static double calculateMean(ArrayList<Article> articles){
 
         double sum = 0;
@@ -136,7 +139,7 @@ public class Main {
         return sum / articles.size();
     }
 
-
+    // Calculates the standard deviation of positivity scores given a list of articles
     public static double calculateSD(double mean, ArrayList<Article> articles){
 
 
@@ -159,6 +162,7 @@ public class Main {
 
     }
 
+    // Normalize an article's positivity score through z-score calculation
     public static void normalizeScore(Article a, double mean, double SD){
 
 
@@ -169,7 +173,7 @@ public class Main {
         a.setPosScore(zScore);
     }
 
-
+    // Clear out a given file to be used for output
     public static void clearFile(String filePath){
 
         try{
