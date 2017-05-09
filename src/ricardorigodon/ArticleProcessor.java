@@ -1,3 +1,7 @@
+/*  Greg Heitman, Ricardo Rigodon, Brooks Wegmann
+ *  CSC320 
+ *  Final Project
+ */
 package ricardorigodon;
 
 import java.io.File;
@@ -10,7 +14,7 @@ import java.util.Map;
  */
 public class ArticleProcessor {
 
-
+    
     static Map<String, Boolean> wordMap = new HashMap<String, Boolean>();
 
     final static File positiveWords = new File("./words/positive-words.txt");
@@ -27,7 +31,7 @@ public class ArticleProcessor {
 
     static ArticleProcessor articleProcessor = new ArticleProcessor();
 
-
+    
     public static ArticleProcessor getArticleProcessor(){
 
         if(wordMap.isEmpty()){
@@ -58,19 +62,20 @@ public class ArticleProcessor {
         double positiveCount = 0;
 
         for(String s : sentences){
-
+            //Split on nonword characters
             String[] splitter = s.split("\\W+");
 
             int posWordCount = 0;
             int negWordCount = 0;
 
-
+            // For each word in a sentence, check if it exists in the semantic word map
             for(String str : splitter){
 
                 str.replaceAll("[^a-zA-Z0-9]", "");
 
                 boolean inMap = wordMap.containsKey(str);
-
+    
+                // If the word exists in the map, increment corresponding neg/pos value
                 if(inMap){
 
                     if(wordMap.get(str)){
@@ -86,14 +91,14 @@ public class ArticleProcessor {
                 }
 
             }
-
+            // Increment an articles positive count if there are more positive words than negative words
             if(posWordCount > negWordCount){
 
                 positiveCount++;
             }
         }
 
-
+        // Total score is ratio of positive sentences to total sentences
         score = positiveCount / sentenceCount;
 
 
@@ -106,10 +111,10 @@ public class ArticleProcessor {
     }
 
 
-
+    /* Loads semantic word lists into HashMap */
     public static void loadWords(File file){
 
-
+        /* Associates words from positive word list with true */
         if(file.getName().equals(positiveWords.getName())){
 
             System.out.println("Loading positive words.");
@@ -129,7 +134,7 @@ public class ArticleProcessor {
 
 
         }
-
+        /* Associates words from negative word list with false */
         else if(file.getName().equals(negativeWords.getName())){
 
             System.out.println("Loading negative words.");
