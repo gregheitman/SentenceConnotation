@@ -74,10 +74,15 @@ Contributions
 -------------
 
 Project Proposal - Ricardo
+
 Overall Project Design - Ricardo
+
 Project Implementation - Everyone (mainly used paired programming)
+
 Debugging - Everyone
+
 Documentation - Brooks
+
 Data Analysis & Representation - Greg
 
 
